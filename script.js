@@ -42,6 +42,7 @@ function onMessage(message, sender, isGroup = false, isAdmin = false) {
 /* =============================== NEW COMMANDS =============================== */
 if (command === "save") {
   // Save media/files
+  (async () => {
   if (message.hasMedia) {
     const media = await message.downloadMedia();
     // Save media logic (e.g., fs.writeFile)
@@ -49,6 +50,7 @@ if (command === "save") {
   } else {
     console.log("No media to save");
   }
+})()
 }
 
 if (command === "vv") {
@@ -67,15 +69,18 @@ if (command === "antiviewonce") {
 
 if (command === "getviewonce") {
   // Fetch view-once media (if API supports)
+  (async () => {
   if (message.type === 'view_once') {
     const media = await message.downloadMedia();
     console.log("View-once media fetched");
     // Save or process media
   }
+})()
 }
 
 if (command === "clone") {
   // Clone content (e.g., forward message)
+  (async () => {
   if (message.hasMedia) {
     await message.forward(sender);
     console.log("Media cloned");
@@ -83,8 +88,8 @@ if (command === "clone") {
     await message.reply(message.body);
     console.log("Message cloned");
   }
+})()
 }
-
 if (command === "spy") {
   // Spy mode (log all activity)
   console.log(`SPY: ${sender} -> ${message.body}`);
